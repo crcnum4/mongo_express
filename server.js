@@ -1,7 +1,8 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
+const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
@@ -12,6 +13,10 @@ mongoose
     .connect(db)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err))
+    
+const users = require('./routes/api/users');
+
+app.use('/api/users', users);
 
 app.get('/', (req, res) => res.send('Hello'))
 
